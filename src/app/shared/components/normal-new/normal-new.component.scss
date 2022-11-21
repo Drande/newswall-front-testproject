@@ -1,0 +1,16 @@
+:host {
+  height: 100%;
+}
+
+.news-image {
+  max-width: 30rem;
+  height: auto;
+  aspect-ratio: 16/9;
+  border-radius: 0.5rem;
+  align-self: center;
+}
+
+.news-title {
+  text-decoration: underline;
+  color: var(--primary-color);
+}

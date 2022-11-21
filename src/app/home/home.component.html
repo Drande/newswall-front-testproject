@@ -1,0 +1,35 @@
+<div class="home-grid gap-2 flex-wrap-reverse w-full p-4">
+  <!-- Left Column used for selected new display -->
+  <div class="flex flex-column">
+    <!-- Template reference for dynamic loading from component -->
+    <ng-template contentTemplate></ng-template>
+  </div>
+  <!-- Right/Top Column -->
+  <p-scrollPanel class="flex w-full shadow-border border-round" [style]="{ 'height': 'calc(100vh - 3rem)', 'width': '100%'}">
+    <div class="flex flex-column gap-2 align-items-center p-4 w-full">
+      <!-- Button for adding news -->
+      <p-button (click)="createNew()" label="Create" styleClass="p-button-sm"></p-button>
+      <!-- Dynamic loading of news cards with type discrimination -->
+      <div class="w-full bg-primary mt-2" style="height: 1px;"></div>
+      <h2>Latest news</h2>
+      <ng-container *ngFor="let newData of (news$ | async)">
+        <ng-container *ngIf="newData.type === NewsTypes.NORMAL">
+          <div (click)="setNew(newData)" class="news-card shadow-border">
+            <div>
+              <span>{{newData.title}}</span>
+            </div>
+            <img [src]="newData.imageUrl" [alt]="newData.title">
+          </div>
+        </ng-container>
+        <ng-container *ngIf="newData.type === NewsTypes.SLIDESHOW">
+          <div (click)="setNew(newData)" class="news-card shadow-border" *ngFor="let slide of (newData.slides | slice: 0:1)">
+            <div>
+              <span>{{newData.title}}</span>
+            </div>
+            <img [src]="slide.imageUrl" [alt]="slide.title">
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </p-scrollPanel>
+</div>

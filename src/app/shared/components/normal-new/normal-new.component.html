@@ -1,0 +1,9 @@
+<ng-container *ngIf="data">
+  <div class="flex flex-column gap-2 w-full shadow-border p-2 border-round h-full">
+    <h1 class="news-title">{{data.title}}</h1>
+    <img class="news-image" [src]="data.imageUrl" [alt]="data.title">
+    <p>
+      {{data.text}}
+    </p>
+  </div>
+</ng-container>

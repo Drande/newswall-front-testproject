@@ -1,0 +1,53 @@
+<ng-container>
+  <form class="formgrid grid gap-2" [formGroup]="newsForm">
+    <div class="field col-12">
+      <label for="title">Title</label>
+      <input class="w-full" id="title" type="text" formControlName="title" pInputText>
+    </div>
+    <div class="field col-12">
+      <label for="text">Text (max 5000 characters)</label>
+      <textarea class="w-full" id="text" rows="4" maxlength="5000" type="text" formControlName="text" pInputTextarea></textarea>
+    </div>
+    <div class="field col-12">
+      <label for="tags">Tags</label>
+      <p-multiSelect styleClass="w-full" id="tags" [options]="availableTags" optionLabel="label" optionValue="value" formArrayName="tags"></p-multiSelect>
+    </div>
+    <div class="field col-12">
+      <label for="type">Type</label>
+      <p-dropdown [options]="typeOptions" styleClass="w-full" id="type" formControlName="type"></p-dropdown>
+    </div>
+    <ng-container *ngIf="newsForm.controls['type'].value as typeValue">
+      <div *ngIf="[NewsTypes.NORMAL].includes(typeValue)" class="field col-12">
+        <label for="imageUrl">Image url</label>
+        <input class="w-full" id="imageUrl" type="text" formControlName="imageUrl" pInputText>
+      </div>
+      <ng-container *ngIf="[NewsTypes.SLIDESHOW].includes(typeValue)" formArrayName="slides">
+        <label for="imageUrl">Slides</label>
+        <ng-container *ngFor="let arrayControl of newsForm.controls.slides.controls; let index=index; let count=count">
+          <div class="shadow-border border-round col-12 pt-2 relative">
+            <i class="cursor-pointer hover:text-primary pi pi-times absolute p-2 top-0 right-0" *ngIf="count > 1" (click)="removeSlide(index)"></i>
+            <ng-container [formGroupName]="index">
+              <div class="field col-12">
+                <label for="title">Title</label>
+                <input class="w-full" id="title" type="text" formControlName="title" pInputText>
+              </div>
+              <div class="field col-12">
+                <label for="imageUrl">Image url</label>
+                <input class="w-full" id="imageUrl" type="text" formControlName="imageUrl" pInputText>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+        <div class="flex flex-row gap-2 justify-content-end w-full">
+          <p-button (onClick)="addSlide()" label="Add slide"></p-button>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <!-- Action buttons -->
+    <div class="flex flex-row gap-2 justify-content-end w-full">
+      <p-button (onClick)="submitForm()" label="Submit"></p-button>
+      <p-button (onClick)="close()" label="Cancel" styleClass="p-button-outlined"></p-button>
+    </div>
+  </form>
+</ng-container>

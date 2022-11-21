@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+  min-height: 100vh;
+  height: auto;
+  margin: 0;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: var(--font-family);
+}
+
+img {
+  border-radius: inherit;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.shadow-border {
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}

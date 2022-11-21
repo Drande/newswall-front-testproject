@@ -1,0 +1,21 @@
+<ng-container *ngIf="data">
+  <div class="flex flex-column gap-2 w-full shadow-border p-2 border-round h-full">
+    <h1 class="news-title">{{data.title}}</h1>
+    <!-- Simulating a simple carousel element -->
+    <div class="slides-container p-2">
+      <ng-container *ngFor="let slide of data.slides; let index=index">
+        <div class="carousel-item px-2" [ngClass]="{
+          'active': index === currentSlide,
+          'next': index === nextSlide,
+          'previous': index === previousSlide
+        }">
+          <img class="carousel-image shadow-border" [src]="slide.imageUrl" [alt]="data.title">
+          <span class="carousel-title shadow-border">{{slide.title}}</span>
+        </div>
+      </ng-container>
+    </div>
+    <p>
+      {{data.text}}
+    </p>
+  </div>
+</ng-container>
